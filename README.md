@@ -1,57 +1,36 @@
-FILLEUL Mika - STAVRIDIS Adonis<br>
-L3 S5 - CMI Image
+# Shared Database
 
-# Documentation utilisateur
+----
 
-Ce projet d’algorithmes des réseaux, constitue une banque de données distribuée
-avec des notions de respect de la qualité privée des données et étant tolérante
-aux pannes en même temps. Dans cette documentation, vous est expliqué comment
-est structuré le projet, comment le compiler, l'exécuter, l'utiliser et
-éventuellement le modifier.
+This project is a Shared Database built entirely in C, using UDP but with TCP features.
 
----
+The database has features of privacy of data and being able to recover data in case of failure.
 
-## Dossiers et Fichiers
+----
 
-Dans ce projet vous trouverez plusieurs dossiers et fichiers:
-- **bdd** est un dossier dans lequel se trouve *acces.txt* qui est le fichier
-contenant toutes les informations des utilisateurs.
-- **include** est un dossier dans lequel se trouvent tout les fichiers headers
-nécessaires au bon fonctionnement du code. Dans ce dossier il y a le fichier
-*types.h* dans lequel se trouvent toutes les MACROS et types/structures
-utilisées dans le projet.
-- **src** est un dossier dans lequel se trouvent des dossiers, chacun contenant
-le code pour un type de noeud de la banque de données: **appli** pour
-une application cliente, **s_acces** pour le serveur d'accès et **s_data** pour
-un serveur de données.
-- *Makefile* est un fichier qui permet de compiler et lancer toutes les
-exécutables facilement.
-- *Rapport.pdf* est un fichier contenant toutes les informations nécessaires
-pour comprendre comment fonctionne la banque de données.
-- *README.md* est un fichier contenant toutes les informations nécessaires pour
-comprendre comment utiliser la banque de données.
+### Overview
 
----
+In this project you will find the following folders and files:
+- **bdd** is a folder where you can find **acces.txt**, a folder containing information about users.
+- **include** is a folder with all header files. Here you will find **types.h** a folder with all MACROS and types/structures used in this project.
+- **src** is a folder containing sub-folders with all source code for the nodes of the database: **appli** for a client application, **s_acces** for the main server and **s_data** for a data server.
+- **Makefile** is a file that will allow you to compile and execute the project easily.
 
-## Compilation et exécution
+### Compile and Run
 
-Pour travailler sur la banque de données, ouvrir un terminal et aller au
-répertoire du projet.
+To compile and run this project you will have to go to the project directory and open a terminal.
 
-Pour **compiler** la totatilé du projet, utiliser:
+To compile the whole project use the command:
 
     make
 
-Voici les commandes à écrire depuis le répertoire du projet, pour lancer les
-exécutables respectivement d'une application/client, du serveur d'accès et d'un
-serveur de données:
+Here are the commands to use in the project directory, to respectively run the applications of a client, a main server and a data server:
 
     ./bin/appli <PORT>
     ./bin/s_acces
-    ./bin/s_data <PORT> <CHAMP>
+    ./bin/s_data <PORT> <FIELD>
 
-Dans le *Makefile* il existe plusieures commandes qui permettent de facilement
-lancer tout les exécutables. Voici toutes les commandes possibles:
+In the **Makefile** there are multiple commands that allow you to easily run the applications. Here are the commands:
 
     make test_simple
     make test_all
@@ -64,126 +43,93 @@ lancer tout les exécutables. Voici toutes les commandes possibles:
     make t_s_data_age2
     make t_s_data_gender1
     make t_s_data_gender2
+    make mem_appli1
+    make mem_appli2
+    make mem_s_acces
+    make mem_s_data_age1
+    make mem_s_data_age2
+    make mem_s_data_gender1
+    make mem_s_data_gender2
 
-- **make test_simple** lance le serveur d'accès, un serveur de données AGE puis
-GENDER, une application cliente, et enfin après 30 secondes un deuxième serveur
-de données AGE, pour vérifier le bon fonctionnement de la synchronisation.
-- **make test_all** lance le serveur d'accés, deux serveurs de données AGE, puis
-deux serveurs de données GENDER, et enfin deux applications clientes.
-- **make mem_simple** et **make mem_all** sont les commandes équivalentes à
-make test_simple tet make test_all, mais avec l'utilisation de valgrind, pour
-la vérification du bon fonctionnement du programme et de la mémoire.
-- **make t_appli1** et **make t_appli2** sont des commandes pour lancer deux
-clients différents avec deux ports prédefinis dans le *Makefile*.
-- **make t_s_acces** lance le serveur d'accès.
-- **make t_s_data_age1**, **make t_s_data_age2**, **make t_s_data_gender1** et
-**make t_s_data_gender2** sont des commandes qui lancent des serveurs de données
-avec des ports et champs différents.
+- **make test_simple** launches the main server, a data storage of field AGE, a data storage of field GENDER, a client application, and finally, after 30 seconds, a second data server of field AGE, to verify that the synchronization works as intended.
+- **make test_all** launches the main server, two data servers of field AGE, two data servers of field GENDER and finally two client applications.
+- **make mem_simple** and **make mem_all** are the equivalent commands to
+*make test_simple* and *make test_all*, but now using valgrind, to verify the correct usage of the memory.
+- **make t_appli1** and **make t_appli2** are commands to launch two client applications with predefined ports found in the **Makefile**.
+- **make t_s_acces** launches the main server.
+- **make t_s_data_age1**, **make t_s_data_age2**, **make t_s_data_gender1** and
+**make t_s_data_gender2** are commands that launch data servers with predefined ports and fields found in the **Makefile**.
+- all remaining **make mem_** commands are the commands to their **make t_** counterparts, but now using valgrind, to verify the correct usage of the memory.
 
-Les terminaux créés avec les commandes **make test_simple**, **make test_all**,
-**make mem_simple** et **make mem_all** sont des terminaux GNOME. Si vous
-n'utilisez pas ce terminal, ou ne possédez pas la commande **gnome-terminal**
-sur votre ordinateur, alors il faudra lancer les exécutables manuellement. Sinon
-vous pouvez aussi télécharger le terminal GNOME.
+The terminals created with the commands **make test_simple**, **make test_all**,
+**make mem_simple** and **make mem_all** are GNOME terminals. If you do not use this terminal, or do not have it on your machine, you will have to launch applications manually. Otherwise, you can also download the GNOME terminal.
 
----
+### Application / Client
 
-## Application / Client
+At launch, the application will verify if the main server is online. If it isn't then the application closes, otherwise it will continue.
 
-Au lancement, l'application va vérifier si le serveur d'accès est ligne. En cas
-d'echec l'application se ferme, sinon elle continue.
+A menu will appear with two options: connect to the database or quit. You will need to enter **1** to connect or **2** to quit the application.
 
-Un menu s'affiche alors avec deux options: s'authentifier à la banque ou
-quitter. Il faut donc entrer **1** pour s'authentifier ou **2** pour quitter
-l'application.
+If you have chosen to connect, then you will have to enter your information, therefor your username and your password.
 
-Ensuite, il faut entrer vos coordonnées, donc votre nom d'utilisateur et votre
-mot de passe.
+Finally, you will be able to write your instructions: read, write or delete data. Here is the correct format of the instructions to write:
 
-Enfin, vous arrivez à l'étape des instructions, où vous pouvez lire, écrire ou
-supprimer des données. Voici le format des instructions à écrire:
+    read <field1> [<field2> ...]
+    write <field1:value1> [<field2:value2> ...]
+    delete
 
-    lire <champ1> [<champ2> ...]
-    ecrire <champ1:valeur1> [<champ2:valeur2> ...]
-    supprimer
-
-Pour quitter cette étape, entrer la commande:
+To quit the instructions use the command:
 
     quit
 
-## Serveur d'accès
+### Main server
 
-Au lancement, le serveur d'accès va charger toutes les informations des
-utilisateurs. Ensuite des clients et des serveurs de données peuvent se
-connecter.
+At launch, the server will automatically load the information of all users. Then clients and data servers will be able to connect to it.
 
-Tout au long de son fonctionnement, le serveur affiche ce qu'il est en train
-d'exécuter.
+During its' run-time, the server will print what it is executing.
 
-Vous pouvez aussi utiliser les trois commandes suivantes pour respectivement,
-afficher tous les nom d'utilisateur chargés, afficher les clients authentifiés
-avec leur numéro de port et enfin afficher les serveurs de données connectés
-avec leur numéro de port.
+You can use the three following commands to respectively print, all loaded users, logged in users (with their port number) and all connected data servers (with their port number):
 
-    logins
+    users
     clients
     datas
 
-Pour éteindre le serveur proprement, utiliser la commande:
+To close the server use the command:
 
     quit
 
-Il faudra attendre 30 secondes maximum, pour la fermeture du deuxième thread du
-serveur.
+You will have to wait a maximum of 30 seconds for the application to end a thread, before it closes definitely.
 
-## Serveur de données
+### Data server
 
-Au lancement, le serveur de données va automatiquement tenter de se connecter au
-serveur d'accés. S'il reussit alors le serveur continue, sinon il se ferme.
+At launch, the server will automatically try to connect to the main server. If it does not succeed it will close.
 
-Si le serveur reussit à se connecter, mais qu'il n'est pas le premier de son
-champ à l'être, alors ce serveur va se synchroniser avec un autre serveur
-connecté de même champ. Sinon, le serveur se connecte normalement et attends des
-demandes du serveur d'accès.
+If it does, but isn't the first one of the same field to be connected to the main server, then it will synchronize its' data with a server of the same field. Otherwise, it will connect normally and wait for instructions.
 
-Tout au long de son fonctionnement, le serveur affiche ce qu'il est en train
-d'exécuter.
+During its' run-time, the server will print what it is executing.
 
-Le serveur de données contient une liste chainée, qu'il est possible d'afficher
-avec la commande:
+The data servers contain linked lists, that can be printed using the command:
 
-    liste
+    list
 
-Pour éteindre le serveur proprement, utiliser la commande:
+To close the server use the command:
 
     quit
 
----
+### Modifying Ports
 
-## Modification des Ports
+If needed, here is how you can change the port numbers used in this project.
 
-Si besoin, voici comment changer les numéros des ports utilisés dans ce projet.
+To modify the ports used by the main server, you will have to change of the values of **PORT_1** and **PORT_2** found in the folder **/include/types.h**.
 
-Pour modifier les ports utilisés par le serveur d'accès, il faut modifier les
-valeurs de **PORT_1** et **PORT_2**, qui se trouvent dans le fichier
-*/include/types.h*.
+To modify the ports used by all other applications using the **Makefile** commands, then you will have to modify the values of **P_APPLI1**,
+**P_APPLI2**, **P_DATA_AGE1**, **P_DATA_AGE2**, **P_DATA_GENDER1** and
+**P_DATA_GENDER2**, found in the **Makefile**.
 
-Pour modifier les ports utilisés par tout les autres exécutables utilisant les
-commandes du *Makefile*, alors il faut modifier les valeurs de **P_APPLI1**,
-**P_APPLI2**, **P_DATA_AGE1**, **P_DATA_AGE2**, **P_DATA_GENDER1** et
-**P_DATA_GENDER2**, qui se trouvent dans le *Makefile*.
+Otherwise, you can also launch client applications and data servers by using your own ports and fields.
 
-Sinon il est toujours possible de lancer les applications clientes ou les
-serveurs de données avec vos prores ports et champs.
+### Cleaning
 
----
-
-## Nettoyage
-
-Pour nettoyer ou supprimer tout les fichiers compilés, utiliser la commande:
+To clean the project use the command:
 
     make clean
-
----
-
-Merci d'avoir utilisé notre banque de données!
