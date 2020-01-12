@@ -2,7 +2,7 @@
 
 ----
 
-This project is a Shared Database built entirely in C, using UDP but with TCP features.
+This project is a Shared Database built entirely in **C**, using UDP but with TCP features.
 
 The database has features of privacy of data and being able to recover data in case of failure.
 
